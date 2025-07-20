@@ -8,7 +8,7 @@ public class Main {
 		System.out.println("Hello World");
 
 		String texto = "Eu sou um cara legal, voce nao acha?";
-		
+
 		byte[] bytes = texto.getBytes(StandardCharsets.UTF_8);
 		StringBuilder hexString = new StringBuilder();
 		for (byte b : bytes) {
@@ -17,12 +17,12 @@ public class Main {
 		byte[][][] matriz = create_matrix(bytes);
 //		show_matrix(matriz);
 
-		//System.out.printf("%02x", (byte)' ');
+		// System.out.printf("%02x", (byte)' ');
 
-		//byte[][] uau = SBox.get_sbox();
-		//SBox.show_sbox(uau);
-		
-		byte[][][] teste = sub_byte(matriz);
+		// byte[][] uau = SBox.get_sbox();
+		// SBox.show_sbox(uau);
+
+		byte[][][] teste = shift_rows(matriz);
 		show_matrix(matriz);
 		System.out.println("================");
 		show_matrix(teste);
@@ -59,21 +59,41 @@ public class Main {
 			System.out.println("\n");
 		}
 	}
-	
-	public static byte [][][] sub_byte(byte[][][] entrada_matriz){
+
+	public static byte[][][] sub_byte(byte[][][] entrada_matriz) {
 		byte[][][] saida_matriz = new byte[entrada_matriz.length][entrada_matriz[0].length][entrada_matriz[0][0].length];
-		
+
 		byte[][] sbox = SBox.get_sbox();
 		int x, y;
+
+		for (int h = 0; h < entrada_matriz.length; h++) {
+			for (int i = 0; i < entrada_matriz[h].length; i++) {
+				for (int j = 0; j < entrada_matriz[h][i].length; j++) {
+					x = entrada_matriz[h][i][j] / 16;
+					y = Math.floorMod(entrada_matriz[h][i][j], 16);
+					saida_matriz[h][i][j] = sbox[y][x];
+				}
+			}
+		}
+
+		return saida_matriz;
+	}
+
+	public static byte [][][] shift_rows(byte[][][] entrada_matriz){
+		byte[][][] saida_matriz = new byte[entrada_matriz.length][entrada_matriz[0].length][entrada_matriz[0][0].length];
+		
+		int x = 0;
 		
 		for (int h = 0; h < entrada_matriz.length; h++) {
 			for (int i = 0; i < entrada_matriz[h].length; i++) {
 				for (int j = 0; j < entrada_matriz[h][i].length; j++) {
-					x = entrada_matriz[h][i][j]/16;
-					y = Math.floorMod(entrada_matriz[h][i][j],16);
-					saida_matriz[h][i][j] = sbox[y][x];
+					
+					saida_matriz[h][i][j] = entrada_matriz[h][i][Math.floorMod(x, 4)];
+					x++;
 				}
+				x++;
 			}
+			x = 0;
 		}
 		
 		return saida_matriz;
