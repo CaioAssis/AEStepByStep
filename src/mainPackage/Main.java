@@ -14,20 +14,18 @@ public class Main {
 		for (byte b : bytes) {
 			hexString.append(String.format("%02x", b));
 		}
-//		byte[][][] matriz = create_matrix(bytes);
+		byte[][][] matriz = create_matrix(bytes);
 //		show_matrix(matriz);
 
 		//System.out.printf("%02x", (byte)' ');
 
-//		//separacao coordenadas hexa para s-box
-//		int y = (byte)'j'/16;
-//		int z = Math.floorMod((byte)'j',16);
-//		
-//		System.out.printf("%01d\n",y);
-//		System.out.printf("%01d", z);
-
 		//byte[][] uau = SBox.get_sbox();
 		//SBox.show_sbox(uau);
+		
+		byte[][][] teste = sub_byte(matriz);
+		show_matrix(matriz);
+		System.out.println("================");
+		show_matrix(teste);
 	}
 
 	public static byte[][][] create_matrix(byte[] entrada) {
@@ -60,5 +58,24 @@ public class Main {
 			}
 			System.out.println("\n");
 		}
+	}
+	
+	public static byte [][][] sub_byte(byte[][][] entrada_matriz){
+		byte[][][] saida_matriz = new byte[entrada_matriz.length][entrada_matriz[0].length][entrada_matriz[0][0].length];
+		
+		byte[][] sbox = SBox.get_sbox();
+		int x, y;
+		
+		for (int h = 0; h < entrada_matriz.length; h++) {
+			for (int i = 0; i < entrada_matriz[h].length; i++) {
+				for (int j = 0; j < entrada_matriz[h][i].length; j++) {
+					x = entrada_matriz[h][i][j]/16;
+					y = Math.floorMod(entrada_matriz[h][i][j],16);
+					saida_matriz[h][i][j] = sbox[y][x];
+				}
+			}
+		}
+		
+		return saida_matriz;
 	}
 }
