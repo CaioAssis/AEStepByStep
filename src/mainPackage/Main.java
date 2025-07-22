@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Hello World");
 
-		String texto = "Eu sou um cara legal, voce nao acha?";
+		String texto = "Eu sou um cara legal, voce nao acha?2";
 
 		byte[] bytes = texto.getBytes(StandardCharsets.UTF_8);
 		StringBuilder hexString = new StringBuilder();
@@ -19,13 +19,13 @@ public class Main {
 
 		// System.out.printf("%02x", (byte)' ');
 
-		// byte[][] uau = SBox.get_sbox();
-		// SBox.show_sbox(uau);
-
-		byte[][][] teste = shift_rows(matriz);
-		show_matrix(matriz);
+		//matriz = shift_rows(matriz);
+		// show_matrix(matriz);
 		System.out.println("================");
-		show_matrix(teste);
+		// show_matrix(teste);
+		
+		//matriz = mix_columns(matriz);
+		show_matrix(matriz);
 	}
 
 	public static byte[][][] create_matrix(byte[] entrada) {
@@ -79,15 +79,15 @@ public class Main {
 		return saida_matriz;
 	}
 
-	public static byte [][][] shift_rows(byte[][][] entrada_matriz){
+	public static byte[][][] shift_rows(byte[][][] entrada_matriz) {
 		byte[][][] saida_matriz = new byte[entrada_matriz.length][entrada_matriz[0].length][entrada_matriz[0][0].length];
-		
+
 		int x = 0;
-		
+
 		for (int h = 0; h < entrada_matriz.length; h++) {
 			for (int i = 0; i < entrada_matriz[h].length; i++) {
 				for (int j = 0; j < entrada_matriz[h][i].length; j++) {
-					
+
 					saida_matriz[h][i][j] = entrada_matriz[h][i][Math.floorMod(x, 4)];
 					x++;
 				}
@@ -95,7 +95,41 @@ public class Main {
 			}
 			x = 0;
 		}
-		
+
 		return saida_matriz;
 	}
+
+	public static byte[][][] mix_columns(byte[][][] entrada_matriz) {
+		byte[][] fixedMatrix = MixColumnsMatrix.fixed_matrix();
+		byte[][][] saida_matriz = new byte[entrada_matriz.length][4][4];
+		for (int h = 0; h < entrada_matriz.length; h++) {
+			for (int col = 0; col < 4; col++) {
+				for (int row = 0; row < 4; row++) {
+					byte val = 0;
+					for (int i = 0; i < 4; i++) {
+						val ^= gfMultiply(fixedMatrix[row][i], entrada_matriz[h][i][col]);
+					}
+					saida_matriz[h][row][col] = val;
+				}
+			}
+		}
+		return saida_matriz;
+	}
+
+	public static byte gfMultiply(byte a, byte b) {
+		byte p = 0;
+		for (int i = 0; i < 8; i++) {
+			if ((b & 1) != 0) {
+				p ^= a;
+			}
+			int hiBitSet = a & 0x80;
+			a <<= 1;
+			if (hiBitSet != 0) {
+				a ^= 0x1B;
+			}
+			b >>= 1;
+		}
+		return p;
+	}
+
 }
