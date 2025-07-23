@@ -19,13 +19,17 @@ public class Main {
 
 		// System.out.printf("%02x", (byte)' ');
 
-		//matriz = shift_rows(matriz);
+		// matriz = shift_rows(matriz);
 		// show_matrix(matriz);
 		System.out.println("================");
 		// show_matrix(teste);
-		
-		//matriz = mix_columns(matriz);
-		show_matrix(matriz);
+
+		// matriz = mix_columns(matriz);
+		// show_matrix(matriz);
+
+		byte[] roundKey = { (byte) 0x9a, (byte) 0x9b, (byte) 0x9c, (byte) 0x9d, (byte) 0x9e, (byte) 0x9f, (byte) 0xa0,
+				(byte) 0xa1, (byte) 0xa2, (byte) 0xa3, (byte) 0xa4, (byte) 0xa5, (byte) 0xa6, (byte) 0xa7, (byte) 0xa8,
+				(byte) 0xa9 };
 	}
 
 	public static byte[][][] create_matrix(byte[] entrada) {
@@ -130,6 +134,30 @@ public class Main {
 			b >>= 1;
 		}
 		return p;
+	}
+
+	public static byte[][][] addRoundKey(byte[][][] entrada_matriz, byte[] chave_entrada){
+		byte[][][] saida_matriz = new byte[entrada_matriz.length][4][4];
+		
+		byte[][] chave_matriz = new byte[4][4];
+		int val=0;
+		
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				chave_matriz[i][j] = chave_entrada[val];
+				val++;
+			}
+		}
+		
+		for(int h = 0; h < entrada_matriz.length; h++) {
+			for(int i = 0; i < entrada_matriz[h].length; i++) {
+				for(int j = 0; j < entrada_matriz[h][i].length; j++) {
+					saida_matriz[h][i][j] = (byte) (entrada_matriz[h][i][j] ^ chave_matriz[i][j]);
+				}
+			}
+		}
+		
+		return saida_matriz;
 	}
 
 }
