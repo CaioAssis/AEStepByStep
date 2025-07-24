@@ -25,7 +25,11 @@ public class Rcon {
 	
 	public static void main(String[] args) {
 		byte[] meupau = new byte[4];
-		meupau = get_round_rcon(14);
+		meupau = get_round_rcon(0);
 		System.out.printf("[%02x]", meupau[0]);
+		byte a = 5;
+		byte b = 3;
+		byte r = (byte)(a^b);
+		System.out.printf("%02x", r);
 	}
 }
