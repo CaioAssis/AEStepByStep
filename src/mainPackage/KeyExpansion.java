@@ -2,6 +2,14 @@ package mainPackage;
 
 public class KeyExpansion {
 
+	public static byte[] generator(byte[] word, int round) {
+		byte[] saida = new byte[4];
+		saida = rot_word(word);
+		saida = sub_word(saida);
+		saida = rcon(saida, round);
+		return saida;
+	}
+	
 	public static byte[] rot_word(byte[] word){
 		byte[] saida = new byte[4];
 		for(int i=0; i<4; i++) {
