@@ -2,6 +2,28 @@ package mainPackage;
 
 public class KeyExpansion {
 
+	public static byte[][] expansion(byte[][] round_key, int round) {
+		byte[][] new_round_key = new byte[4][4];
+		byte[] gen_word = new byte[4];
+		for(int i=0; i<4; i++) {
+			gen_word[i] = round_key[3][i];
+		}
+		
+		gen_word = generator(gen_word, round);
+		
+		for(int i=0; i<4; i++) {
+			for(int j=0; j<4; j++) {
+				if(i == 0) {
+					new_round_key[i][j] = (byte)(round_key[i][j] ^ gen_word[j]);
+				}
+				else {
+					new_round_key[i][j] = (byte)(round_key[i][j] ^ new_round_key[i-1][j]);
+				}
+			}
+		}
+		return new_round_key;
+	}
+	
 	public static byte[] generator(byte[] word, int round) {
 		byte[] saida = new byte[4];
 		saida = rot_word(word);
@@ -40,12 +62,5 @@ public class KeyExpansion {
 		}
 		return saida;
 	}
-	
-	public static void main(String[] args) {
-		byte[] in = {(byte)0x01, (byte)0x02, (byte)0x03, (byte)0x04, };
-		//in = rot_word(in);
-		//in = sub_word(in);
-		in = rcon(in, 8);
-		System.out.printf("%02x", in[0]);
-	}
+
 }
