@@ -1,4 +1,4 @@
-package mainPackage;
+package encryption;
 
 public class KeyExpansion {
 
@@ -41,7 +41,7 @@ public class KeyExpansion {
 	}
 	
 	public static byte[] sub_word(byte[] word) {
-		byte[][] sbox = SBox.get_sbox();
+		byte[][] sbox = FixedTables.get_sbox();
 		byte[] saida = new byte[4];
 		int x,y;
 		
@@ -55,7 +55,7 @@ public class KeyExpansion {
 	
 	public static byte[] rcon(byte[] word, int round){
 		byte[] saida = new byte[4];
-		byte[] rcon = Rcon.get_round_rcon(round);
+		byte[] rcon = FixedTables.get_round_rcon(round);
 		
 		for(int i=0; i<4; i++) {
 			saida[i] = (byte)(word[i] ^ rcon[i]);
