@@ -3,7 +3,6 @@ package encryption;
 public class Operations {
 
 	public static byte[][][] create_matrix(byte[] entrada) {
-		System.out.println("Entrou");
 		int pointer = 0;
 		int quantidade = (entrada.length / 16) + 1;
 		byte[][][] matriz = new byte[quantidade][4][4];
@@ -38,13 +37,14 @@ public class Operations {
 		byte[][][] saida_matriz = new byte[entrada_matriz.length][entrada_matriz[0].length][entrada_matriz[0][0].length];
 
 		byte[][] sbox = FixedTables.get_sbox();
-		int x, y;
+		int x = 0, y = 0; 
 
 		for (int h = 0; h < entrada_matriz.length; h++) {
 			for (int i = 0; i < entrada_matriz[h].length; i++) {
 				for (int j = 0; j < entrada_matriz[h][i].length; j++) {
-					x = entrada_matriz[h][i][j] / 16;
-					y = Math.floorMod(entrada_matriz[h][i][j], 16);
+					x = (entrada_matriz[h][i][j] & 0xFF)/ 16;
+					y = Math.floorMod(entrada_matriz[h][i][j] & 0xFF, 16);
+
 					saida_matriz[h][i][j] = sbox[y][x];
 				}
 			}
@@ -106,23 +106,13 @@ public class Operations {
 		return p;
 	}
 
-	public static byte[][][] addRoundKey(byte[][][] entrada_matriz, byte[] chave_entrada){
+	public static byte[][][] addRoundKey(byte[][][] entrada_matriz, byte[][] chave_entrada){
 		byte[][][] saida_matriz = new byte[entrada_matriz.length][4][4];
-		
-		byte[][] chave_matriz = new byte[4][4];
-		int val=0;
-		
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 4; j++) {
-				chave_matriz[i][j] = chave_entrada[val];
-				val++;
-			}
-		}
 		
 		for(int h = 0; h < entrada_matriz.length; h++) {
 			for(int i = 0; i < entrada_matriz[h].length; i++) {
 				for(int j = 0; j < entrada_matriz[h][i].length; j++) {
-					saida_matriz[h][i][j] = (byte) (entrada_matriz[h][i][j] ^ chave_matriz[i][j]);
+					saida_matriz[h][i][j] = (byte) (entrada_matriz[h][i][j] ^ chave_entrada[i][j]);
 				}
 			}
 		}

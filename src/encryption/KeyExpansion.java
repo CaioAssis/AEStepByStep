@@ -46,8 +46,8 @@ public class KeyExpansion {
 		int x,y;
 		
 		for(int i=0; i<4; i++) {
-			x = word[i] / 16;
-			y = word[i] % 16;
+			x = (word[i]  & 0xFF)/ 16;
+			y = (word[i]  & 0xFF)% 16;
 			saida[i] = sbox[x][y];
 		}
 		return saida;
