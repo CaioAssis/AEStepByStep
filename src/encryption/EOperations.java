@@ -1,6 +1,6 @@
 package encryption;
 
-public class Operations {
+public class EOperations {
 
 	public static byte[][][] create_matrix(byte[] entrada) {
 		int pointer = 0;
