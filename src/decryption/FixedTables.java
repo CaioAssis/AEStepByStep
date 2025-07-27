@@ -2,7 +2,7 @@ package decryption;
 
 public abstract class FixedTables {
 		
-	public static byte[][] get_inv_Sbox() {
+	public static byte[][] get_inv_sbox() {
 		return new byte[][] {
 				{ (byte) 0x52, (byte) 0x09, (byte) 0x6A, (byte) 0xD5, (byte) 0x30, (byte) 0x36, (byte) 0xA5,
 						(byte) 0x38, (byte) 0xBF, (byte) 0x40, (byte) 0xA3, (byte) 0x9E, (byte) 0x81, (byte) 0xF3,
@@ -54,7 +54,8 @@ public abstract class FixedTables {
 						(byte) 0x0C, (byte) 0x7D } };
 	}
 
-	public static void show_inv_sbox(byte[][] matriz) {
+	public static void show_inv_sbox() {
+		byte[][] matriz = get_inv_sbox();
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz[i].length; j++) {
 				System.out.printf("[%02x] ", matriz[i][j]);

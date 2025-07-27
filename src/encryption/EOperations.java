@@ -42,8 +42,8 @@ public class EOperations {
 		for (int h = 0; h < entrada_matriz.length; h++) {
 			for (int i = 0; i < entrada_matriz[h].length; i++) {
 				for (int j = 0; j < entrada_matriz[h][i].length; j++) {
-					x = (entrada_matriz[h][i][j] & 0xFF)/ 16;
-					y = Math.floorMod(entrada_matriz[h][i][j] & 0xFF, 16);
+					y = (entrada_matriz[h][i][j] & 0xFF)/ 16;
+					x = Math.floorMod(entrada_matriz[h][i][j] & 0xFF, 16);
 
 					saida_matriz[h][i][j] = sbox[y][x];
 				}
