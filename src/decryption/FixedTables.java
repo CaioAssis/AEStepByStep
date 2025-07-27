@@ -64,4 +64,12 @@ public abstract class FixedTables {
 		}
 		System.out.println("\n");
 	}
+	
+	public static byte[][] get_inv_mix_columns_matrix() {
+		byte[][] fixedMatrix = { { (byte) 0x0E, (byte) 0x0B, (byte) 0x0D, (byte) 0x09 },
+				{ (byte) 0x09, (byte) 0x0E, (byte) 0x0B, (byte) 0x0D },
+				{ (byte) 0x0D, (byte) 0x09, (byte) 0x0E, (byte) 0x0B },
+				{ (byte) 0x0B, (byte) 0x0D, (byte) 0x09, (byte) 0x0E } };
+		return fixedMatrix;
+	}
 }
