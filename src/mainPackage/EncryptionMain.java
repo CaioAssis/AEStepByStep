@@ -1,26 +1,11 @@
 package mainPackage;
+
 import encryption.EOperations;
 import encryption.KeyExpansion;
 
-
-import java.nio.charset.StandardCharsets;
-
 public class EncryptionMain {
 	
-	public static void main(String[] args) {
-
-		String texto = "Eu sou um cara legal, voce nao acha?";
-
-		byte[] bytes = texto.getBytes(StandardCharsets.UTF_8);
-		StringBuilder hexString = new StringBuilder();
-		for (byte b : bytes) {
-			hexString.append(String.format("%02x", b));
-		}
-		byte[][][] matriz_inicial = EOperations.create_matrix(bytes);
-		
-		byte[] roundKey_inicial = { (byte) 0x9a, (byte) 0x9b, (byte) 0x9c, (byte) 0x9d, (byte) 0x9e, (byte) 0x9f, (byte) 0xa0,
-				(byte) 0xa1, (byte) 0xa2, (byte) 0xa3, (byte) 0xa4, (byte) 0xa5, (byte) 0xa6, (byte) 0xa7, (byte) 0xa8,
-				(byte) 0xa9 };
+	public static byte[][][] encrypt(byte[][][] matriz_inicial, byte[] roundKey_inicial) {
 		//
 		byte[][] roundKey = new byte[4][4];
 		int val=0;
@@ -64,7 +49,7 @@ public class EncryptionMain {
 			}
 		}
 		
-		EOperations.show_matrix(matriz_estado);
+		return matriz_estado;
 	}
 
 }

@@ -1,10 +1,8 @@
 package decryption;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
 
 import encryption.EOperations;
-import encryption.FixedTables;
 
 public class DOperations {
 	public static byte[][][] inv_shift_rows(byte[][][] entrada_matriz) {
@@ -47,6 +45,52 @@ public class DOperations {
 		return saida_matriz;
 	}
 	
+	public static byte[][][] inv_mix_columns(byte[][][] entrada_matriz) {
+		byte[][] fixedMatrix = decryption.FixedTables.get_inv_mix_columns_matrix();
+		byte[][][] saida_matriz = new byte[entrada_matriz.length][4][4];
+		for (int h = 0; h < entrada_matriz.length; h++) {
+			for (int col = 0; col < 4; col++) {
+				for (int row = 0; row < 4; row++) {
+					byte val = 0;
+					for (int i = 0; i < 4; i++) {
+						val ^= gfMultiply(fixedMatrix[row][i], entrada_matriz[h][i][col]);
+					}
+					saida_matriz[h][row][col] = val;
+				}
+			}
+		}
+		return saida_matriz;
+	}
+
+	public static byte gfMultiply(byte a, byte b) {
+		byte p = 0;
+		for (int i = 0; i < 8; i++) {
+			if ((b & 1) != 0) {
+				p ^= a;
+			}
+			int hiBitSet = a & 0x80;
+			a <<= 1;
+			if (hiBitSet != 0) {
+				a ^= 0x1B;
+			}
+			b >>= 1;
+		}
+		return p;
+	}
+
+	public static byte[][][] addRoundKey(byte[][][] entrada_matriz, byte[][] chave_entrada){
+		byte[][][] saida_matriz = new byte[entrada_matriz.length][4][4];
+		
+		for(int h = 0; h < entrada_matriz.length; h++) {
+			for(int i = 0; i < entrada_matriz[h].length; i++) {
+				for(int j = 0; j < entrada_matriz[h][i].length; j++) {
+					saida_matriz[h][i][j] = (byte) (entrada_matriz[h][i][j] ^ chave_entrada[i][j]);
+				}
+			}
+		}
+		
+		return saida_matriz;
+	}
 	
 	public static void main(String[] Args) {
 		String texto = "abcdabcdabcdabcdabcd";

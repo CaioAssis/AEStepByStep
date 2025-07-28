@@ -1,26 +1,11 @@
 package mainPackage;
 
-import java.nio.charset.StandardCharsets;
-
 import encryption.KeyExpansion;
-import encryption.EOperations;
 import decryption.DOperations;
 
 public class DecryptionMain {
 
-	public static void main(String[] args) {
-		String texto = "Eu sou um cara legal, voce nao acha?";
-
-		byte[] bytes = texto.getBytes(StandardCharsets.UTF_8);
-		StringBuilder hexString = new StringBuilder();
-		for (byte b : bytes) {
-			hexString.append(String.format("%02x", b));
-		}
-		byte[][][] matriz_inicial = EOperations.create_matrix(bytes);
-
-		byte[] roundKey_inicial = { (byte) 0x9a, (byte) 0x9b, (byte) 0x9c, (byte) 0x9d, (byte) 0x9e, (byte) 0x9f,
-				(byte) 0xa0, (byte) 0xa1, (byte) 0xa2, (byte) 0xa3, (byte) 0xa4, (byte) 0xa5, (byte) 0xa6, (byte) 0xa7,
-				(byte) 0xa8, (byte) 0xa9 };
+	public static byte[][][] decrypt(byte[][][] matriz_inicial, byte[] roundKey_inicial) {
 		//
 		byte[][][] roundKey = new byte[11][4][4];
 		int val = 0;
@@ -39,32 +24,40 @@ public class DecryptionMain {
 			}
 		}
 		// AddRoundKey (comentado)
-		byte[][][] matriz_estado = EOperations.addRoundKey(matriz_inicial, roundKey[10]);
+		byte[][][] matriz_estado = DOperations.addRoundKey(matriz_inicial, roundKey[10]);
 		for (int i = 10; i > 0; i--) {
 			if (i == 10) {
 				// InvShiftrows (comentados)
+				matriz_estado = DOperations.inv_shift_rows(matriz_estado);
 				// InvSubBytes 
+				matriz_estado = DOperations.inv_sub_byte(matriz_estado);
 				// AddRoundKey
-				matriz_estado = EOperations.addRoundKey(matriz_estado, roundKey[i-1]);
+				matriz_estado = DOperations.addRoundKey(matriz_estado, roundKey[i-1]);
 				// InvMixColumns	
+				matriz_estado = DOperations.inv_mix_columns(matriz_estado);
 				
 			} else if (i == 1) {
 				// Ultima rodada
-				// InvShiftrows
+				// InvShiftrows 
+				matriz_estado = DOperations.inv_shift_rows(matriz_estado);
 				// InvSubBytes 
+				matriz_estado = DOperations.inv_sub_byte(matriz_estado);
 				// AddRoundKey
-				matriz_estado = EOperations.addRoundKey(matriz_estado, roundKey[i-1]);
+				matriz_estado = DOperations.addRoundKey(matriz_estado, roundKey[i-1]);
 			} else {
 				// Resto
 				// InvShiftrows
+				matriz_estado = DOperations.inv_shift_rows(matriz_estado);
 				// InvSubBytes 
+				matriz_estado = DOperations.inv_sub_byte(matriz_estado);
 				// AddRoundKey
-				matriz_estado = EOperations.addRoundKey(matriz_estado, roundKey[i-1]);
-				// InvMixColumns
+				matriz_estado = DOperations.addRoundKey(matriz_estado, roundKey[i-1]);
+				// InvMixColumns	
+				matriz_estado = DOperations.inv_mix_columns(matriz_estado);
 			}
 		}
-
-		EOperations.show_matrix(matriz_estado);
+		
+		return matriz_estado;
 
 	}
 
