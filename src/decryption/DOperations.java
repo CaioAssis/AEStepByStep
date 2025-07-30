@@ -4,7 +4,17 @@ import java.nio.charset.StandardCharsets;
 
 import encryption.EOperations;
 
+/**
+ * Classe responsavel pelas operacoes de decriptacao
+ */
 public class DOperations {
+	/**
+	 * Metodo responsavel por fazer a movimentacao 
+	 * dos bytes da matriz estado de forma decrescente 
+	 * ([0][1][2][3] para [3][0][1][2])
+	 * @param entrada_matriz - array de matrizes de estado
+	 * @return array de matrizes de estado apos a movimentacao de colunas
+	 */
 	public static byte[][][] inv_shift_rows(byte[][][] entrada_matriz) {
 		byte[][][] saida_matriz = new byte[entrada_matriz.length][entrada_matriz[0].length][entrada_matriz[0][0].length];
 
@@ -24,7 +34,13 @@ public class DOperations {
 
 		return saida_matriz;
 	}
-
+	
+	/**
+	 * Metodo responsavel por fazer a substituicao 
+	 * dos bytes da matriz, em relacao a tabela inv sbox
+	 * @param entrada_matriz - array de matrizes de estado
+	 * @return array de matrizes de estado apos a substituicao de bytes
+	 */
 	public static byte[][][] inv_sub_byte(byte[][][] entrada_matriz) {
 		byte[][][] saida_matriz = new byte[entrada_matriz.length][entrada_matriz[0].length][entrada_matriz[0][0].length];
 
@@ -45,6 +61,11 @@ public class DOperations {
 		return saida_matriz;
 	}
 	
+	/**
+	 * Metodo responsavel por fazer o calculo da mistura de colunas do AES
+	 * @param entrada_matriz - array de matrizes de estado 
+	 * @return array de matrizes de estado apos a mistura de colunas
+	 */
 	public static byte[][][] inv_mix_columns(byte[][][] entrada_matriz) {
 		byte[][] fixedMatrix = decryption.FixedTables.get_inv_mix_columns_matrix();
 		byte[][][] saida_matriz = new byte[entrada_matriz.length][4][4];
@@ -62,6 +83,14 @@ public class DOperations {
 		return saida_matriz;
 	}
 
+	/**
+	 * Metodo responsavel por realizar a multiplicacao dos 
+	 * bytes presentes na operacao mixcolumns com a matriz fixa
+	 * dessa mesma operacao. Operacao feita byte a byte.
+	 * @param a - byte referente a matriz fixa
+	 * @param b - byte referente a matriz estado
+	 * @return byte resultante da operacao
+	 */
 	public static byte gfMultiply(byte a, byte b) {
 		byte p = 0;
 		for (int i = 0; i < 8; i++) {
@@ -78,6 +107,12 @@ public class DOperations {
 		return p;
 	}
 
+	/**
+	 * Metodo responsavel por fazer operacao XOR entre a chave da rodada e a matriz estado
+	 * @param entrada_matriz - array de matrizes de estado
+	 * @param chave_entrada - matriz da chave da rodada
+	 * @return array de matrizes de estado apos a operacao XOR
+	 */
 	public static byte[][][] addRoundKey(byte[][][] entrada_matriz, byte[][] chave_entrada){
 		byte[][][] saida_matriz = new byte[entrada_matriz.length][4][4];
 		
@@ -90,20 +125,5 @@ public class DOperations {
 		}
 		
 		return saida_matriz;
-	}
-	
-	public static void main(String[] Args) {
-		String texto = "abcdabcdabcdabcdabcd";
-
-		byte[] bytes = texto.getBytes(StandardCharsets.UTF_8);
-		StringBuilder hexString = new StringBuilder();
-		for (byte b : bytes) {
-			hexString.append(String.format("%02x", b));
-		}
-		byte[][][] matriz_inicial = EOperations.create_matrix(bytes);
-		EOperations.show_matrix(matriz_inicial);
-		//matriz_inicial = inv_shift_rows(matriz_inicial);
-		//matriz_inicial = inv_sub_byte(matriz_inicial);
-		EOperations.show_matrix(matriz_inicial);
 	}
 }
