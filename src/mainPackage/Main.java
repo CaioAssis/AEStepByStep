@@ -6,8 +6,7 @@ import encryption.EOperations;
 
 public class Main {
 	public static void main(String[] args) {
-		String texto = "eu sou legal";
-		4DB13EBA1C066C5568414B1B540DBFBD
+		String texto = "eu sou legal demais da  conta";
 		byte[] bytes = texto.getBytes(StandardCharsets.UTF_8);
 		StringBuilder hexString = new StringBuilder();
 		for (byte b : bytes) {

@@ -18,10 +18,8 @@ public class DecryptionMain {
 		//
 
 		// Guardar Chave do Key_expansion antes de iniciar, pois addroundkey vai vir decrescendo
-		for(int i=0; i<11; i++) {
-			if(i != 0) {
-				roundKey[i] = KeyExpansion.expansion(roundKey[i-1], i);
-			}
+		for(int i=1; i<11; i++) {
+				roundKey[i] = KeyExpansion.expansion(roundKey[i-1], i-1);
 		}
 		// AddRoundKey (comentado)
 		byte[][][] matriz_estado = DOperations.addRoundKey(matriz_inicial, roundKey[10]);
