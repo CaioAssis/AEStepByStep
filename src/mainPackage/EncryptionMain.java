@@ -5,6 +5,12 @@ import encryption.KeyExpansion;
 
 public class EncryptionMain {
 	
+	/**
+	 * Aplica os métodos de encriptação e as repetições deles.
+	 * @param matriz_inicial - sequência de matrizes da matriz estado.
+	 * @param roundKey_inicial - chave inicial da encriptação.
+	 * @return retorna a matriz encriptada da frase inicial.
+	 */
 	public static byte[][][] encrypt(byte[][][] matriz_inicial, byte[] roundKey_inicial) {
 		//
 		byte[][] roundKey = new byte[4][4];

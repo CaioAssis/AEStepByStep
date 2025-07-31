@@ -32,6 +32,11 @@ public class Main {
 
 	}
 
+	/**
+	 * Transforma uma sequência de matrizes de bytes hexadecimais em uma string com os caracteres em UTF-8.
+	 * @param matriz - sequência de matrizes a ser traduzidas.
+	 * @return retorna uma string com os caracteres em UTF-8.
+	 */
 	public static String translator(byte[][][] matriz) {
 		// Converte a matriz 4x4 (ou qualquer dimensão) em um vetor
 		int profundidade = matriz.length;
