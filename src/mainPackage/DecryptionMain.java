@@ -3,8 +3,17 @@ package mainPackage;
 import encryption.KeyExpansion;
 import decryption.DOperations;
 
+/**
+ *Classe responsavel por gerenciar o fluxo de decriptacao da frase
+ */
 public class DecryptionMain {
-
+	
+	/**
+	 * Metodo que gerencia o fluxo de decriptacao da frase
+	 * @param matriz_inicial - matriz do texto cifrado
+	 * @param roundKey_inicial - chave da rodada inicial. Esperado um array de 16 bytes
+	 * @return matriz de bytes referentes ao texto pleno
+	 */
 	public static byte[][][] decrypt(byte[][][] matriz_inicial, byte[] roundKey_inicial) {
 		//
 		byte[][][] roundKey = new byte[11][4][4];

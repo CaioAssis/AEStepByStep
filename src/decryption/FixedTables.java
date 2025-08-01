@@ -1,7 +1,14 @@
 package decryption;
 
+/**
+ * Classe que cria as tabelas fixas presentes na decriptacao AES
+ */
 public abstract class FixedTables {
 		
+	/**
+	 * Cria tabela fixa utilizada na operacao inv subbytes
+	 * @return matriz inv sbox
+	 */
 	public static byte[][] get_inv_sbox() {
 		return new byte[][] {
 				{ (byte) 0x52, (byte) 0x09, (byte) 0x6A, (byte) 0xD5, (byte) 0x30, (byte) 0x36, (byte) 0xA5,
@@ -54,6 +61,9 @@ public abstract class FixedTables {
 						(byte) 0x0C, (byte) 0x7D } };
 	}
 
+	/**
+	 * Metodo utilizado para o print da tabela inv sbox no console
+	 */
 	public static void show_inv_sbox() {
 		byte[][] matriz = get_inv_sbox();
 		for (int i = 0; i < matriz.length; i++) {
@@ -65,6 +75,10 @@ public abstract class FixedTables {
 		System.out.println("\n");
 	}
 	
+	/**
+	 * Cria tabela fixa utilizada na operacao inv subbytes
+	 * @return matriz da tabela fixa
+	 */
 	public static byte[][] get_inv_mix_columns_matrix() {
 		byte[][] fixedMatrix = { { (byte) 0x0E, (byte) 0x0B, (byte) 0x0D, (byte) 0x09 },
 				{ (byte) 0x09, (byte) 0x0E, (byte) 0x0B, (byte) 0x0D },
