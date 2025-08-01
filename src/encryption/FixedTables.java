@@ -1,6 +1,11 @@
 package encryption;
 
 public abstract class FixedTables {
+	
+	/**
+	 * Tabela fixa da S-Box.
+	 * @return retorna a S-Box montada em forma de matriz.
+	 */
 	public static byte[][] get_sbox() {
 		byte[][] sbox = {
 				{ (byte) 0x63, (byte) 0x7C, (byte) 0x77, (byte) 0x7B, (byte) 0xF2, (byte) 0x6B, (byte) 0x6F,
@@ -53,6 +58,11 @@ public abstract class FixedTables {
 						(byte) 0xBB, (byte) 0x16 } };
 		return sbox;
 	}
+	
+	/**
+	 * Imprime a S-Box no console.
+	 * @param matriz - matriz da S-Box.
+	 */
 	public static void show_sbox(byte[][] matriz) {
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz[i].length; j++) {
@@ -63,6 +73,10 @@ public abstract class FixedTables {
 		System.out.println("\n");
 	}
 	
+	/**
+	 * Tabela fixa do mix comlumns.
+	 * @return retorna a tabela do mix columns em forma de matriz.
+	 */
 	public static byte[][] get_mix_columns_matrix() {
 		byte[][] fixedMatrix = { { (byte) 0x02, (byte) 0x03, (byte) 0x01, (byte) 0x01 },
 				{ (byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x01 },
