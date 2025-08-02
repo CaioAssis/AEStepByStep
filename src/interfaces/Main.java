@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	int height=200, width=300;
+	double height=200, width=300;
 	
     public static Stage mainStage;
 
