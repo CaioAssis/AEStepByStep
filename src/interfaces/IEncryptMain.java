@@ -16,8 +16,8 @@ public class IEncryptMain {
     	
 		Scene scene = new Scene(root, width, height);
 
-		Label phrase_label = new Components().label("Digite a frase a ser encriptada");
-		TextArea txtarea = new Components().textArea();
+		Label phrase_label = new Components().label("Digite a frase a ser encriptada",StylesEnum.SUBTITLE);
+		TextArea txtarea = new Components().textArea("placeholder");
 		txtarea.textProperty().addListener((obs, aval, val) -> System.out.println(val));
 		
 
