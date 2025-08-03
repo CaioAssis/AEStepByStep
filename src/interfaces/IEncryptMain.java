@@ -35,8 +35,11 @@ public class IEncryptMain {
         phrase_matrix.getChildren().addAll(phrase_grid);
         HBox key_grid = new HBox(10);
         HBox nav_grid = new HBox(10);
-		Button nav_button = new Components().navButton("Voltar");
-        nav_grid.getChildren().addAll(nav_button);
+		Button back_button = new Components().navButton("Voltar");
+		back_button.setOnAction(
+				e -> Main.mainStage.setScene(new Index().getScene(scene.getWidth(),scene.getHeight())));
+		Button next_button = new Components().navButton("Próximo");
+        nav_grid.getChildren().addAll(back_button, next_button);
         
         VBox vboxroot = new VBox(10);
         vboxroot.getChildren().addAll(phrase_matrix,key_grid,nav_grid);
