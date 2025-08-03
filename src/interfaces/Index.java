@@ -10,10 +10,11 @@ public class Index{
 	public Scene getScene(double width, double height) {
 		StackPane root = new StackPane();
 		Scene scene = new Scene(root, width, height);
-		Button btnEncrypt = new Button("Encriptação");
+		
+		Button btnEncrypt = new Components().navButton("Encriptação");
 		btnEncrypt.setOnAction(
 				e -> Main.mainStage.setScene(new IEncryptMain().getScene(scene.getWidth(),scene.getHeight())));
-		Button btnDecrypt = new Button("Decriptação");
+		Button btnDecrypt = new Components().skipButton("Decriptação");
 		btnDecrypt.setOnAction(
 				e -> Main.mainStage.setScene(new IDecryptMain().getScene(scene.getWidth(),scene.getHeight())));
 

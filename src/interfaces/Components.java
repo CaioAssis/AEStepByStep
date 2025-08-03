@@ -1,5 +1,6 @@
 package interfaces;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
@@ -38,5 +39,25 @@ public class Components {
 		label.setText(text);
 
 		return label;
+	}
+	
+	public Button navButton(String text) {
+		Button button = new Button();
+		
+		button.setText(text);
+		button.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+		button.getStyleClass().add("button-nav");
+		
+		return button;
+	}
+	
+	public Button skipButton(String text) {
+		Button button = new Button();
+		
+		button.setText(text);
+		button.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+		button.getStyleClass().add("button-skip");
+		
+		return button;
 	}
 }

@@ -25,3 +25,31 @@
 	-fx-font-size: 12px;
 	-fx-text-fill: black;
 }
+.button-nav{
+	-fx-font-family: "verdana";
+	-fx-font-size: 15px;
+	-fx-text-fill: black;
+	-fx-background-color: #fff7b0;
+	-fx-border-color: #999;
+	-fx-focus-color: transparent;
+	-fx-background-insets: 0;
+	-fx-border-radius: 10px;
+	-fx-background-radius: 10px;
+}
+.button-nav:pressed{
+	-fx-background-color: #ebe4a4
+}
+.button-skip{
+	-fx-font-family: "verdana";
+	-fx-font-size: 14px;
+	-fx-text-fill: black;
+	-fx-background-color: #fff7b0;
+	-fx-border-color: #999;
+	-fx-focus-color: transparent;
+	-fx-background-insets: 0;
+	-fx-border-radius: 10px;
+	-fx-background-radius: 10px;
+}
+.button-skip:pressed{
+	-fx-background-color: #ebe4a4
+}

@@ -1,6 +1,7 @@
 package interfaces;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -12,7 +13,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         mainStage = primaryStage;
         primaryStage.setTitle("AEStepByStep");
+        Image app_icon = new Image(getClass().getResourceAsStream("../assets/icon.png"));
 
+        primaryStage.getIcons().add(app_icon);
         primaryStage.setScene(new Index().getScene(width, height));
         primaryStage.show();
     }

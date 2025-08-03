@@ -34,7 +34,9 @@ public class IEncryptMain {
         	phrase_grid.setAlignment(Pos.TOP_LEFT);
         phrase_matrix.getChildren().addAll(phrase_grid);
         HBox key_grid = new HBox(10);
-        HBox nav_grid = new HBox(10); 
+        HBox nav_grid = new HBox(10);
+		Button nav_button = new Components().navButton("Voltar");
+        nav_grid.getChildren().addAll(nav_button);
         
         VBox vboxroot = new VBox(10);
         vboxroot.getChildren().addAll(phrase_matrix,key_grid,nav_grid);
