@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	double height=200, width=300;
+	double height=600, width=800;
 	
     public static Stage mainStage;
 

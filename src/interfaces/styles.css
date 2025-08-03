@@ -4,6 +4,12 @@
     -fx-control-inner-background: #ffff;
     -fx-border-color: #999;
 }
+.text-field {
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+    -fx-control-inner-background: #ffff;
+    -fx-border-color: #999;
+}
 .label-title{
 	-fx-font-family: "verdana";
 	-fx-font-size: 20px;

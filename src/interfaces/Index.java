@@ -14,7 +14,7 @@ public class Index{
 		Button btnEncrypt = new Components().navButton("Encriptação");
 		btnEncrypt.setOnAction(
 				e -> Main.mainStage.setScene(new IEncryptMain().getScene(scene.getWidth(),scene.getHeight())));
-		Button btnDecrypt = new Components().skipButton("Decriptação");
+		Button btnDecrypt = new Components().navButton("Decriptação");
 		btnDecrypt.setOnAction(
 				e -> Main.mainStage.setScene(new IDecryptMain().getScene(scene.getWidth(),scene.getHeight())));
 
