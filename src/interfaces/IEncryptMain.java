@@ -39,7 +39,7 @@ public class IEncryptMain {
 		TextField key_txtfield = new Components().textField("Digite a chave");
 		key_txtfield.textProperty().addListener((obs, aval, val) -> System.out.println(val));
 		
-		TableView<Table_content> tabela = matrix();
+		//TableView<Table_content> tabela = matrix();
         
         HBox phrase_matrix = new HBox(10);
         	VBox phrase_grid = new VBox(5);
@@ -81,36 +81,36 @@ public class IEncryptMain {
         return scene;
     }
     
-    public static TableView<Table_content> matrix () {
-    	TableView<Table_content> table = new TableView<>();
-
-    	TableColumn<Table_content, String> b0 = new TableColumn<>("0");
-    	b0.setCellValueFactory(new PropertyValueFactory<>("b0"));
-    	
-    	TableColumn<Table_content, String> b1 = new TableColumn<>("1");
-    	b1.setCellValueFactory(new PropertyValueFactory<>("b1"));
-    	
-    	TableColumn<Table_content, String> b2 = new TableColumn<>("2");
-    	b2.setCellValueFactory(new PropertyValueFactory<>("b2"));
-    	
-    	TableColumn<Table_content, String> b3 = new TableColumn<>("3");
-    	b3.setCellValueFactory(new PropertyValueFactory<>("b3"));
-
-    	table.getColumns().addAll(b0, b1, b2, b3);
-    	
-    	ObservableList<Table_content> matrix = FXCollections.observableArrayList(
-    			new Table_content ("a", "b", "c", "d")
-    			);
-    	
-    	table.setItems(matrix);
-    	table.skinProperty().addListener((obs, oldSkin, newSkin) -> {
-    	    Node header = table.lookup("TableHeaderRow");
-    	    if (header != null) {
-    	        header.setVisible(false);
-    	        header.setManaged(false);
-    	    }
-    	});
-    	return table;
-    }
+//    public static TableView<Table_content> matrix () {
+//    	TableView<Table_content> table = new TableView<>();
+//
+//    	TableColumn<Table_content, String> b0 = new TableColumn<>("0");
+//    	b0.setCellValueFactory(new PropertyValueFactory<>("b0"));
+//    	
+//    	TableColumn<Table_content, String> b1 = new TableColumn<>("1");
+//    	b1.setCellValueFactory(new PropertyValueFactory<>("b1"));
+//    	
+//    	TableColumn<Table_content, String> b2 = new TableColumn<>("2");
+//    	b2.setCellValueFactory(new PropertyValueFactory<>("b2"));
+//    	
+//    	TableColumn<Table_content, String> b3 = new TableColumn<>("3");
+//    	b3.setCellValueFactory(new PropertyValueFactory<>("b3"));
+//
+//    	table.getColumns().addAll(b0, b1, b2, b3);
+//    	
+//    	ObservableList<Table_content> matrix = FXCollections.observableArrayList(
+//    			new Table_content ("a", "b", "c", "d")
+//    			);
+//    	
+//    	table.setItems(matrix);
+//    	table.skinProperty().addListener((obs, oldSkin, newSkin) -> {
+//    	    Node header = table.lookup("TableHeaderRow");
+//    	    if (header != null) {
+//    	        header.setVisible(false);
+//    	        header.setManaged(false);
+//    	    }
+//    	});
+//    	return table;
+//    }
     
 }
