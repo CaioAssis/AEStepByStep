@@ -1,12 +1,18 @@
 package interfaces;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -26,32 +32,27 @@ public class IEncryptMain {
 
 		Label phrase_label = new Components().label("Digite a frase a ser encriptada",StylesEnum.SUBTITLE);
 		Label key_label = new Components().label("Digite a chave da encriptação",StylesEnum.SUBTITLE);
+		
 		TextArea phrase_txtarea = new Components().textArea("Digite a frase");
 		phrase_txtarea.textProperty().addListener((obs, aval, val) -> System.out.println(val));
+		
 		TextField key_txtfield = new Components().textField("Digite a chave");
 		key_txtfield.textProperty().addListener((obs, aval, val) -> System.out.println(val));
 		
-
-        Button btn = new Button("Ir para tela de configurações");
-
-        btn.setOnAction(e -> {
-            // Troca para a tela de configurações
-            Main.mainStage.setScene(new Index().getScene(scene.getWidth(),scene.getHeight()));
-        });
+		TableView<Table_content> tabela = matrix();
         
         HBox phrase_matrix = new HBox(10);
         	VBox phrase_grid = new VBox(5);
         	phrase_grid.getChildren().addAll(phrase_label,phrase_txtarea);
         	phrase_grid.setAlignment(Pos.TOP_LEFT);
-        phrase_matrix.getChildren().addAll(phrase_grid);
+        phrase_matrix.getChildren().addAll(phrase_grid, tabela);
         
-     // Espaço flexível que vai empurrar o resto para baixo
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
         
         HBox key_matrix = new HBox(10);
-    		VBox.setVgrow(key_matrix, Priority.ALWAYS);//problema posicionamento grid
-    		key_matrix.setAlignment(Pos.BOTTOM_CENTER);//problema posicionamento grid
+    		VBox.setVgrow(key_matrix, Priority.ALWAYS);
+    		key_matrix.setAlignment(Pos.BOTTOM_CENTER);
         	VBox key_grid = new VBox(5);
         	key_grid.getChildren().addAll(key_label,key_txtfield);
         key_matrix.getChildren().addAll(key_grid);
@@ -78,6 +79,38 @@ public class IEncryptMain {
 		
         root.getChildren().addAll(vboxroot);
         return scene;
+    }
+    
+    public static TableView<Table_content> matrix () {
+    	TableView<Table_content> table = new TableView<>();
+
+    	TableColumn<Table_content, String> b0 = new TableColumn<>("0");
+    	b0.setCellValueFactory(new PropertyValueFactory<>("b0"));
+    	
+    	TableColumn<Table_content, String> b1 = new TableColumn<>("1");
+    	b1.setCellValueFactory(new PropertyValueFactory<>("b1"));
+    	
+    	TableColumn<Table_content, String> b2 = new TableColumn<>("2");
+    	b2.setCellValueFactory(new PropertyValueFactory<>("b2"));
+    	
+    	TableColumn<Table_content, String> b3 = new TableColumn<>("3");
+    	b3.setCellValueFactory(new PropertyValueFactory<>("b3"));
+
+    	table.getColumns().addAll(b0, b1, b2, b3);
+    	
+    	ObservableList<Table_content> matrix = FXCollections.observableArrayList(
+    			new Table_content ("a", "b", "c", "d")
+    			);
+    	
+    	table.setItems(matrix);
+    	table.skinProperty().addListener((obs, oldSkin, newSkin) -> {
+    	    Node header = table.lookup("TableHeaderRow");
+    	    if (header != null) {
+    	        header.setVisible(false);
+    	        header.setManaged(false);
+    	    }
+    	});
+    	return table;
     }
     
 }
