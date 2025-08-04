@@ -3,6 +3,7 @@ package interfaces;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	double height=600, width=800;
@@ -12,6 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         mainStage = primaryStage;
+        //mainStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle("AEStepByStep");
         Image app_icon = new Image(getClass().getResourceAsStream("../assets/icon.png"));
 

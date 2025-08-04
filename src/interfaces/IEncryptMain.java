@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -19,6 +20,9 @@ public class IEncryptMain {
     	root.setPadding(new Insets(20,20,20,20));
     	
 		Scene scene = new Scene(root, width, height);
+		
+		scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+		scene.getRoot().getStyleClass().add("iencrypt-root");
 
 		Label phrase_label = new Components().label("Digite a frase a ser encriptada",StylesEnum.SUBTITLE);
 		Label key_label = new Components().label("Digite a chave da encriptação",StylesEnum.SUBTITLE);
@@ -41,6 +45,10 @@ public class IEncryptMain {
         	phrase_grid.setAlignment(Pos.TOP_LEFT);
         phrase_matrix.getChildren().addAll(phrase_grid);
         
+     // Espaço flexível que vai empurrar o resto para baixo
+        Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+        
         HBox key_matrix = new HBox(10);
     		VBox.setVgrow(key_matrix, Priority.ALWAYS);//problema posicionamento grid
     		key_matrix.setAlignment(Pos.BOTTOM_CENTER);//problema posicionamento grid
@@ -60,8 +68,13 @@ public class IEncryptMain {
 		
         nav_grid.getChildren().addAll(back_button, next_button);
         
+        
         VBox vboxroot = new VBox(10);
-        vboxroot.getChildren().addAll(phrase_matrix,key_matrix,nav_grid);
+        VBox bottom_box = new VBox(10);
+        bottom_box.getChildren().addAll(key_matrix, nav_grid);
+        bottom_box.setAlignment(Pos.BOTTOM_CENTER);
+        
+        vboxroot.getChildren().addAll(phrase_matrix,spacer,bottom_box);
 		
         root.getChildren().addAll(vboxroot);
         return scene;

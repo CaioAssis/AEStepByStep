@@ -1,3 +1,9 @@
+.index-root {
+    -fx-background-color: linear-gradient(to bottom, #ffff, #ebe4a4);
+}
+.iencrypt-root{
+	-fx-background-color: #ebe4a4;
+}
 .text-area {
     -fx-font-size: 16px;
     -fx-text-fill: black;
@@ -37,6 +43,7 @@
 	-fx-text-fill: black;
 	-fx-background-color: #fff7b0;
 	-fx-border-color: #999;
+	-fx-border-width: 2px 2px 2px 2px;
 	-fx-focus-color: transparent;
 	-fx-background-insets: 0;
 	-fx-border-radius: 10px;

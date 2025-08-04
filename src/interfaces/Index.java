@@ -1,5 +1,7 @@
 package interfaces;
 
+import javax.print.DocFlavor.URL;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,6 +12,9 @@ public class Index{
 	public Scene getScene(double width, double height) {
 		StackPane root = new StackPane();
 		Scene scene = new Scene(root, width, height);
+		
+		scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+		scene.getRoot().getStyleClass().add("index-root");
 		
 		Button btnEncrypt = new Components().navButton("Encriptação");
 		btnEncrypt.setOnAction(
