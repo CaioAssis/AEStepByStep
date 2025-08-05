@@ -7,11 +7,7 @@ import encryption.EOperations;
 public class Main {
 	public static void main(String[] args) {
 		String texto = "eu sou legal demais da  conta";
-		byte[] bytes = texto.getBytes(StandardCharsets.UTF_8);
-		StringBuilder hexString = new StringBuilder();
-		for (byte b : bytes) {
-			hexString.append(String.format("%02x", b));
-		}
+		byte[] bytes = convert_byte(texto);
 		byte[][][] matriz_inicial = EOperations.create_matrix(bytes);
 
 		byte[] roundKey_inicial = { (byte) 0x30, (byte) 0x31, (byte) 0x32, (byte) 0x33, (byte) 0x34, (byte) 0x35,
@@ -29,6 +25,10 @@ public class Main {
 		EOperations.show_matrix(matriz_inicial);
 		System.out.println("=================");
 		System.out.println(translator(matriz_inicial));
+		
+		String hex = String.format("%02X", bytes[0]);
+		
+		System.out.println(hex);
 
 	}
 
@@ -60,5 +60,15 @@ public class Main {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static byte[] convert_byte(String input) {
+		byte[] bytes = input.getBytes(StandardCharsets.UTF_8);
+		StringBuilder hexString = new StringBuilder();
+		for (byte b : bytes) {
+			hexString.append(String.format("%02x", b));
+		}
+		
+		return bytes;
 	}
 }
