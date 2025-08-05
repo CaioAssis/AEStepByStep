@@ -17,6 +17,8 @@ public class IEncryptMain {
 
 	String matrix_phrase = "";
 	VBox matrix_grid = new VBox(5);
+	String key_matrix_phrase = "";
+	VBox key_matrix_grid = new VBox(5);
 
 	public Scene getScene(double width, double height) {
 		StackPane root = new StackPane();
@@ -44,8 +46,12 @@ public class IEncryptMain {
 		phrase_grid.setAlignment(Pos.TOP_LEFT);
 		matrix_grid = tables.matrix_table(matrix_phrase);
 		phrase_matrix.getChildren().addAll(phrase_grid, matrix_grid);
-		phrase_txtarea.textProperty().addListener((obs, aval, val) -> {matrix_phrase = val; matrix_grid = tables.matrix_table(matrix_phrase);phrase_matrix.getChildren().set(1, matrix_grid);});
-		
+		phrase_txtarea.textProperty().addListener((obs, aval, val) -> {
+			matrix_phrase = val;
+			matrix_grid = tables.matrix_table(matrix_phrase);
+			phrase_matrix.getChildren().set(1, matrix_grid);
+		});
+
 		Region spacer = new Region();
 		VBox.setVgrow(spacer, Priority.ALWAYS);
 
@@ -54,7 +60,13 @@ public class IEncryptMain {
 		key_matrix.setAlignment(Pos.BOTTOM_CENTER);
 		VBox key_grid = new VBox(5);
 		key_grid.getChildren().addAll(key_label, key_txtfield);
-		key_matrix.getChildren().addAll(key_grid);
+		key_matrix_grid = tables.matrix_table(key_matrix_phrase);
+		key_matrix.getChildren().addAll(key_grid, key_matrix_grid);
+		key_txtfield.textProperty().addListener((obs, aval, val) -> {
+			key_matrix_phrase = val;
+			key_matrix_grid = tables.matrix_table(key_matrix_phrase);
+			key_matrix.getChildren().set(1, key_matrix_grid);
+		});
 
 		HBox nav_grid = new HBox(100);
 		VBox.setVgrow(nav_grid, Priority.ALWAYS);
