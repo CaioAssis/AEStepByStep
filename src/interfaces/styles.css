@@ -9,6 +9,7 @@
     -fx-text-fill: black;
     -fx-control-inner-background: #ffff;
     -fx-border-color: #999;
+    -fx-max-height: 90px;
 }
 .text-field {
     -fx-font-size: 16px;

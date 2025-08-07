@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 public class Tables {
 	
 	public VBox matrix_table(String input) {
-		System.out.println(input);
 		VBox matrix = new VBox(5);
 		HBox[] item = new HBox[4];
 		byte[] text_byte = mainPackage.Main.convert_byte(input);
