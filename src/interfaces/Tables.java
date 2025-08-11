@@ -31,5 +31,26 @@ public class Tables {
 		
 		return matrix;
 	}
+	
+	public VBox matrix_byte_table(byte[] text_byte) {
+		VBox matrix = new VBox(5);
+		HBox[] item = new HBox[4];
+		Label[] text_label = new Label[16];
+		Components comp = new Components();
+		matrix.getChildren().clear();
+		int h = 0;
+		for(int i = 0; i<4; i++) {
+			item[i] = new HBox(5);
+			for(int j = 0; j<4; j++) {
+					text_label[h] = comp.label(String.format("%02X", text_byte[h]), StylesEnum.BODY);
+
+				item[i].getChildren().add(text_label[h]);
+				h++;
+			}
+			matrix.getChildren().add(item[i]);
+		}
+		
+		return matrix;
+	}
 
 }

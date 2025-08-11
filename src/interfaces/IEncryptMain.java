@@ -1,12 +1,10 @@
 package interfaces;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -93,6 +91,8 @@ public class IEncryptMain {
 				.setOnAction(e -> Main.mainStage.setScene(new Index().getScene(scene.getWidth(), scene.getHeight())));
 
 		Button next_button = new Components().navButton("Próximo");
+		next_button
+		.setOnAction(e -> Main.mainStage.setScene(new IEncrypt2().getScene(scene.getWidth(), scene.getHeight(), key_matrix_grid, phraseHex(matrix_phrase), phraseHex(key_matrix_phrase))));
 
 		nav_grid.getChildren().addAll(back_button, next_button);
 
@@ -106,37 +106,25 @@ public class IEncryptMain {
 		root.getChildren().addAll(vboxroot);
 		return scene;
 	}
-
-//    public static TableView<Table_content> matrix () {
-//    	TableView<Table_content> table = new TableView<>();
-//
-//    	TableColumn<Table_content, String> b0 = new TableColumn<>("0");
-//    	b0.setCellValueFactory(new PropertyValueFactory<>("b0"));
-//    	
-//    	TableColumn<Table_content, String> b1 = new TableColumn<>("1");
-//    	b1.setCellValueFactory(new PropertyValueFactory<>("b1"));
-//    	
-//    	TableColumn<Table_content, String> b2 = new TableColumn<>("2");
-//    	b2.setCellValueFactory(new PropertyValueFactory<>("b2"));
-//    	
-//    	TableColumn<Table_content, String> b3 = new TableColumn<>("3");
-//    	b3.setCellValueFactory(new PropertyValueFactory<>("b3"));
-//
-//    	table.getColumns().addAll(b0, b1, b2, b3);
-//    	
-//    	ObservableList<Table_content> matrix = FXCollections.observableArrayList(
-//    			new Table_content ("a", "b", "c", "d")
-//    			);
-//    	
-//    	table.setItems(matrix);
-//    	table.skinProperty().addListener((obs, oldSkin, newSkin) -> {
-//    	    Node header = table.lookup("TableHeaderRow");
-//    	    if (header != null) {
-//    	        header.setVisible(false);
-//    	        header.setManaged(false);
-//    	    }
-//    	});
-//    	return table;
-//    }
+	
+	public static byte[][][] phraseHex(String input) {
+		byte[] entrada = mainPackage.Main.convert_byte(input);
+		int pointer = 0;
+		int quantidade = (entrada.length / 16) + 1;
+		byte[][][] matriz = new byte[quantidade][4][4];
+		for (int h = 0; h < quantidade; h++) {
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (entrada.length > pointer) {
+						matriz[h][i][j] = entrada[pointer];
+					} else {
+						matriz[h][i][j] = (byte) ' ';
+					}
+					pointer++;
+				}
+			}
+		}
+		return matriz;
+	}
 
 }
