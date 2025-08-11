@@ -5,8 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -17,6 +15,14 @@ import javafx.scene.shape.Line;
 
 public class IEncrypt2 {
 	//Add Round Key
+	//Estamos usando matriz 3D, mas só utilizaremos 2D. 3D para tratamento da matriz.
+	//Vamos fazer o AES todo logo no início, os processos que serão pausados durante o programa serão feitos paralelamente.
+	//Todas as funções usadas estão usando matriz 3D.
+	//Pop-up para explicações.
+	//Explicação por hover do mouse.
+	//Validação dos campos iniciais (frase e chave) para ter a quantidade correta de caracteres.
+	//Limitar a quantidade de caracteres da chave (Listener?).
+	//Colocar botão Home e Skip.
 	public Scene getScene(double width, double height, VBox matrix, byte[][][] phrase, byte[][][] round_key) {
 		StackPane root = new StackPane();
 		root.setPadding(new Insets(20, 20, 20, 20));
